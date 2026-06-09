@@ -1,0 +1,13 @@
+{
+  "version": "1.1",
+  "created": "2026-05-15",
+  "project": "AI开发生态系统",
+  "project_path": "/mnt/e/黑曜石/04_工作/AI开发生态系统",
+  "tasks": [
+    {"id": "REAL-001", "priority": "HIGH", "title": "为 ecosystem_closed_loop_demo 编写单元测试", "description": "为 src/ecosystem_closed_loop_demo.py 编写单元测试", "category": "testing"},
+    {"id": "REAL-002", "priority": "HIGH", "title": "为 skill_router 编写单元测试", "description": "为 src/skills/skill_router.py 编写单元测试", "category": "testing"},
+    {"id": "REAL-003", "priority": "HIGH", "title": "为 coordinator 编写单元测试", "description": "为 src/multi_agent/coordinator.py 编写单元测试", "category": "testing"},
+    {"id": "REAL-004", "priority": "HIGH", "title": "为 github_projects 编写单元测试", "description": "为 src/integrations/github_projects.py 编写单元测试", "category": "testing"}
+  ],
+  "task_queue": ["REAL-001", "REAL-002", "REAL-003", "REAL-004"]
+}

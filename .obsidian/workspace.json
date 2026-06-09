@@ -1,42 +1,24 @@
 {
   "main": {
-    "id": "95cf7c3196e2e156",
+    "id": "56ca8e9ad59030f0",
     "type": "split",
     "children": [
       {
-        "id": "345e0868ff2fa40e",
+        "id": "642e5cf21a166d24",
         "type": "tabs",
-        "dimension": 47.01776649746193,
         "children": [
           {
-            "id": "ed436d79f24ae777",
+            "id": "6b388373768504e2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "📂 棠大脑/棠主人档案.md",
+                "file": "70_Decisions/决策日志/2026-05-18_decision_20260518.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "棠主人档案"
-            }
-          }
-        ]
-      },
-      {
-        "id": "f44d19936f87eb1f",
-        "type": "tabs",
-        "dimension": 52.982233502538065,
-        "children": [
-          {
-            "id": "7c7396afceccbf30",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "2026-05-18_decision_20260518"
             }
           }
         ]
@@ -45,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "de058f9dc6aeadd0",
+    "id": "0ac825ad6aa7a7e6",
     "type": "split",
     "children": [
       {
-        "id": "c5d5ee137be79004",
+        "id": "1dbb77378eae3d76",
         "type": "tabs",
         "children": [
           {
-            "id": "49ba2c7cf21220b1",
+            "id": "f8aa346be870139c",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -66,7 +48,7 @@
             }
           },
           {
-            "id": "50109aeb7b618a3d",
+            "id": "e28fc22960c45ad3",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -83,7 +65,7 @@
             }
           },
           {
-            "id": "f4b923a9c2a5d0db",
+            "id": "a737139cc925a877",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -99,19 +81,20 @@
     "width": 300
   },
   "right": {
-    "id": "062a3052f8df993e",
+    "id": "aecff6b79cd7ebad",
     "type": "split",
     "children": [
       {
-        "id": "501d4cfad262ad28",
+        "id": "f1502b473a084650",
         "type": "tabs",
         "children": [
           {
-            "id": "ec088e6142ce01f0",
+            "id": "57a458abceeda673",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "70_Decisions/决策日志/2026-05-18_decision_20260518.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -121,24 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "反向链接"
+              "title": "2026-05-18_decision_20260518 的反向链接列表"
             }
           },
           {
-            "id": "d021c3e257d33f1b",
+            "id": "576be23502eb407c",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "70_Decisions/决策日志/2026-05-18_decision_20260518.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "出链"
+              "title": "2026-05-18_decision_20260518 的出链列表"
             }
           },
           {
-            "id": "4e2d89ebe34e182c",
+            "id": "73f34be805e2d6df",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -153,7 +137,7 @@
             }
           },
           {
-            "id": "01e4e80f5826f3ca",
+            "id": "c1f41d28c7f117fb",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -167,28 +151,29 @@
             }
           },
           {
-            "id": "5395796e63496082",
+            "id": "20e16b845d51db99",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
+                "file": "70_Decisions/决策日志/2026-05-18_decision_20260518.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "2026-05-18_decision_20260518 的大纲"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "workspaces:管理工作区布局": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -198,43 +183,53 @@
       "bases:新建数据库": false
     }
   },
-  "active": "7c7396afceccbf30",
+  "active": "6b388373768504e2",
   "lastOpenFiles": [
-    "01_每日日志/会话笔记/会话_2026-05-09_1634_20260509_162.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1629_20260509_162.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1627_20260509_162.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1626_20260509_162.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1625_20260509_162.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1622_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1618_20260509_144.md",
-    "📂 棠大脑/棠主人档案.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1602_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1556_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1554_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1551_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1521_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1519_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1517_20260509_144.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1514_20260509_144.md",
-    "📂 棠大脑/棠身份与性格.md",
-    "📂 棠大脑/🧠_棠大脑关系图谱.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1456_20260509_144.md",
-    "01_每日日志/会话笔记/_SESSION_INDEX.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1446_20260508_215.md",
-    "📂 棠大脑/04_项目笔记/副业赚钱项目汇总/项目_077_搞什么副业真的能赚钱.md",
-    "📂 棠大脑/03_知识库/📚工具教程/Obsidian插件完整清单.md",
-    "📂 棠大脑/03_知识库/📚工具教程",
-    "01_每日日志/会话笔记/会话_2026-05-09_1412_20260508_215.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1410_20260509_125.md",
-    "01_每日日志/会话笔记/会话_2026-05-09_1335_20260509_125.md",
-    "01_每日日志/会话笔记",
+    "docs/superpowers/specs/2026-05-17-sightflow-agent-ai-reply-design.md",
+    "__归档/会话/会话_2026-05-20_2152_20260520_203.md",
+    "__归档/会话/会话_2026-05-20_2150_20260520_203.md",
+    "__归档/会话/会话_2026-05-20_2149_20260520_203.md",
+    "90_共享Knowledge/90_共享Evaluation/user_feedback/corrections/2026-05-20_20260520.md",
+    "__归档/会话/会话_2026-05-20_2146_20260520_203.md",
+    "__归档/会话/会话_2026-05-20_2039_20260520_203.md",
+    "__归档/会话/会话_2026-05-20_2038_20260520_203.md",
+    "__归档/会话/会话_2026-05-20_2035_20260520_203.md",
+    "90_共享Knowledge/90_共享Evaluation/agent_reports/hermes_reports/2026-05-20_20260520.md",
+    "01_每日日志/2026-05-20.md",
+    "__归档/会话/会话_2026-05-19_0438_20260519_042.md",
+    "__归档/会话/会话_2026-05-19_0433_20260519_042.md",
+    "__归档/会话/会话_2026-05-19_0430_20260519_042.md",
+    "__归档/会话/会话_2026-05-19_0428_20260519_042.md",
+    "__归档/会话/会话_2026-05-19_0426_20260519_042.md",
+    "01_每日日志/2026-05-19_note_20260519.md",
+    "__归档/会话/会话_2026-05-19_0424_20260519_042.md",
+    "90_共享Knowledge/90_共享Evaluation/agent_reports/hermes_reports/2026-05-19_20260519.md",
+    "01_每日日志/2026-05-19.md",
+    "__归档/会话/会话_2026-05-18_1916_20260518_164.md",
+    "__归档/会话/会话_2026-05-18_1915_20260518_164.md",
+    "__归档/会话/会话_2026-05-18_1913_20260518_164.md",
+    "__归档/会话/会话_2026-05-18_1909_20260518_164.md",
+    "90_共享Knowledge/90_共享Evaluation/user_feedback/corrections/2026-05-18_20260518.md",
+    "70_Decisions/决策日志/2026-05-18_decision_20260518.md",
+    "70_Decisions/决策日志",
+    "70_Decisions",
+    "__归档/会话",
+    "__归档",
     "01_每日日志",
-    "📂 棠大脑/03_知识库/🧠规律总结/规律库",
-    "📂 棠大脑/03_知识库/💡知识库/玩法",
-    "📂 棠大脑/03_知识库/💡知识库/灵感库",
-    "📂 棠大脑/03_知识库/💡知识库/投放",
-    "📂 棠大脑/03_知识库/💡知识库/平台",
-    "📂 棠大脑/03_知识库/💡知识库/工具",
-    "📂 棠大脑/04_项目笔记/项目执行"
+    "docs/superpowers/plans/2026-05-17-sightflow-agent-ai-reply-implementation.md.tmp.547859.48aaa147b48b",
+    "docs/superpowers/specs/2026-05-17-sightflow-agent-ai-reply-design.md.tmp.547859.86f06c0ec119",
+    "docs/superpowers/plans/2026-05-17-wechat-auto-reply-implementation.md.tmp.547859.5b6eb731a84f",
+    "docs/superpowers/plans",
+    "docs/superpowers/specs/2026-05-17-wechat-auto-reply-design.md.tmp.547859.df980e3279ca",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/sympy/plotting/tests/test_region_xor.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/sympy/plotting/tests/test_region_or.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/sympy/plotting/tests/test_region_not.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/sympy/plotting/tests/test_region_and.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/notifypy/py-logo.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/coverage/htmlfiles/keybd_closed.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/coverage/htmlfiles/favicon_32.png",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/litellm/proxy/_experimental/out/assets/logos/zscaler.svg",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/litellm/proxy/_experimental/out/assets/logos/zapier.svg",
+    "04_工作/AI开发生态系统/venv/lib/python3.12/site-packages/litellm/proxy/_experimental/out/assets/logos/xinference.svg"
   ]
 }

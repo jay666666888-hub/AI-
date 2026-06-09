@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""
+ShoppingCart Manager
+自动生成 by BuildSkill
+"""
+
+from typing import Dict, Any, List, Optional
+
+
+class ShoppingCartManager:
+    def __init__(self):
+        self.items: Dict[str, Any] = {}
+
+    def add(self, key: str, value: Any) -> bool:
+        self.items[key] = value
+        return True
+
+    def get(self, key: str) -> Optional[Any]:
+        return self.items.get(key)
+
+    def remove(self, key: str) -> bool:
+        if key in self.items:
+            del self.items[key]
+            return True
+        return False
+
+    def list_all(self) -> List[str]:
+        return list(self.items.keys())
+
+    def get_status(self) -> Dict[str, Any]:
+        return {"count": len(self.items)}

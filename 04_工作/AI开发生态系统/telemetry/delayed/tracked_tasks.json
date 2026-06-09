@@ -1,0 +1,80 @@
+{
+  "task_A": {
+    "task_id": "task_A",
+    "task_type": "deploy",
+    "timestamp": "2026-05-16T05:05:57.666886",
+    "initial_outcome": 0.85,
+    "initial_success": true,
+    "t1h_outcome": 0.7,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": 0.7,
+    "outcome_changed": true,
+    "delayed_failure": false
+  },
+  "task_B": {
+    "task_id": "task_B",
+    "task_type": "build",
+    "timestamp": "2026-05-16T05:05:57.675497",
+    "initial_outcome": 0.75,
+    "initial_success": false,
+    "t1h_outcome": null,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": null,
+    "outcome_changed": false,
+    "delayed_failure": false
+  },
+  "wf_20260516_001": {
+    "task_id": "wf_20260516_001",
+    "task_type": "deploy",
+    "timestamp": "2026-05-16T05:08:36.263940",
+    "initial_outcome": 0.75,
+    "initial_success": true,
+    "t1h_outcome": null,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": null,
+    "outcome_changed": false,
+    "delayed_failure": false
+  },
+  "lottery_202686": {
+    "task_id": "lottery_202686",
+    "task_type": "lottery_predict",
+    "timestamp": "2026-05-16T07:00:27.622957",
+    "initial_outcome": 0.5,
+    "initial_success": true,
+    "t1h_outcome": null,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": null,
+    "outcome_changed": false,
+    "delayed_failure": false
+  },
+  "lottery_2026136": {
+    "task_id": "lottery_2026136",
+    "task_type": "lottery_predict",
+    "timestamp": "2026-05-16T07:01:29.315131",
+    "initial_outcome": 0.5,
+    "initial_success": true,
+    "t1h_outcome": null,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": null,
+    "outcome_changed": false,
+    "delayed_failure": false
+  },
+  "wf_20260516_085431": {
+    "task_id": "wf_20260516_085431",
+    "task_type": "unknown",
+    "timestamp": "2026-05-16T08:54:31.551975",
+    "initial_outcome": 0.0,
+    "initial_success": false,
+    "t1h_outcome": null,
+    "t6h_outcome": null,
+    "t24h_outcome": null,
+    "final_outcome": null,
+    "outcome_changed": false,
+    "delayed_failure": false
+  }
+}

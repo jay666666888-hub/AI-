@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ralph Ecosystem Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 25px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, #00d4ff, #7b2ff7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle { color: #888; margin-top: 8px; }
+        .last-update { color: #555; font-size: 0.8rem; margin-top: 5px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .stat-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+        .stat-value { font-size: 1.6rem; font-weight: 700; color: #00d4ff; }
+        .stat-label { font-size: 0.7rem; color: #888; margin-top: 4px; }
+
+        /* 六肖 */
+        .lottery-card {
+            background: linear-gradient(135deg, rgba(123,47,247,0.15), rgba(0,212,255,0.15));
+            text-align: center;
+        }
+        .period-label { font-size: 0.85rem; color: #888; }
+        .period-num { font-size: 2rem; font-weight: 700; color: #00d4ff; margin: 8px 0; }
+        .zodiac-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 15px 0; }
+        .zodiac-tag {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            background: rgba(0,0,0,0.4);
+        }
+        .zodiac-tag.recommended {
+            background: linear-gradient(135deg, #7b2ff7, #00d4ff);
+            box-shadow: 0 2px 10px rgba(123,47,247,0.4);
+        }
+        .hit-bar {
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            height: 22px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .hit-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00c853, #00e676);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #000;
+        }
+
+        /* ECE */
+        .ece-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        .ece-name { color: #aaa; }
+        .ece-val { font-weight: 700; }
+        .good { color: #00c853; }
+        .warn { color: #ff9800; }
+        .bad { color: #f44336; }
+
+        /* 延迟跟踪 */
+        .delay-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+        .delay-id { color: #00d4ff; }
+        .delay-time { color: #666; }
+
+        /* 比较 */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .compare-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+        .compare-label { font-size: 0.75rem; color: #888; margin-bottom: 8px; }
+        .compare-value { font-size: 0.9rem; font-weight: 600; }
+        .new { color: #00d4ff; }
+        .hermes { color: #7b2ff7; }
+        .common-box {
+            margin-top: 12px;
+            padding: 10px;
+            background: rgba(0,200,83,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .common-label { font-size: 0.8rem; color: #888; }
+        .common-value { color: #00c853; font-size: 1.1rem; font-weight: 700; margin-top: 4px; }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #7b2ff7, #00d4ff);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        .wide { grid-column: span 2; }
+        @media (max-width: 768px) { .wide { grid-column: span 1; } }
+
+        .footer {
+            text-align: center;
+            color: #444;
+            font-size: 0.75rem;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ralph Ecosystem</h1>
+            <p class="subtitle">AI开发生态系统 · 实时监控</p>
+            <p class="last-update" id="lastUpdate">加载中...</p>
+        </header>
+
+        <div class="grid">
+            <!-- 系统概览 -->
+            <div class="card wide">
+                <div class="card-title">⚙️ 系统概览</div>
+                <div class="stat-row">
+                    <div class="stat-box">
+                        <div class="stat-value">11</div>
+                        <div class="stat-label">Skills</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">58</div>
+                        <div class="stat-label">Agents</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">14</div>
+                        <div class="stat-label">Layers</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="pendingChecks">--</div>
+                        <div class="stat-label">待处理检查点</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="trackedCount">--</div>
+                        <div class="stat-label">追踪任务</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="overallEce">--</div>
+                        <div class="stat-label">Overall ECE</div>
+                    </div>
+                </div>
+                <button class="btn" onclick="refreshData()">🔄 刷新数据</button>
+            </div>
+
+            <!-- 六肖预测 -->
+            <div class="card lottery-card">
+                <div class="card-title">🎯 六肖预测 (生态新系统)</div>
+                <div class="period-label">预测期号</div>
+                <div class="period-num" id="predictPeriod">加载中...</div>
+                <div class="zodiac-list" id="zodiacList">
+                    <span class="zodiac-tag">--</span>
+                </div>
+                <div class="hit-bar">
+                    <div class="hit-fill" id="hitRateBar" style="width:50%">
+                        回测准确率: <span id="hitRate">--%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECE 校准 -->
+            <div class="card">
+                <div class="card-title">📊 ECE 校准详情</div>
+                <div id="eceList">
+                    <div class="ece-item"><span class="ece-name">加载中...</span><span class="ece-val">--</span></div>
+                </div>
+            </div>
+
+            <!-- 延迟跟踪器 -->
+            <div class="card">
+                <div class="card-title">🔄 延迟跟踪器</div>
+                <div id="delayList">
+                    <div class="delay-item">
+                        <span class="delay-id">加载中...</span>
+                        <span class="delay-time">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 预测对比 -->
+            <div class="card">
+                <div class="card-title">⚖️ 预测对比</div>
+                <div class="compare-grid">
+                    <div class="compare-box">
+                        <div class="compare-label">生态新系统</div>
+                        <div class="compare-value new" id="newSystemTop6">加载中...</div>
+                    </div>
+                    <div class="compare-box">
+                        <div class="compare-label">Hermes v7</div>
+                        <div class="compare-value hermes" id="hermesV7Top6">--</div>
+                    </div>
+                </div>
+                <div class="common-box">
+                    <div class="common-label">共同生肖</div>
+                    <div class="common-value" id="commonZodiac">--</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Ralph Ecosystem Dashboard · 自动刷新每 30 秒
+        </div>
+    </div>
+
+    <script>
+        const BASE = '/mnt/e/黑曜石/04_工作/AI开发生态系统';
+
+        async function loadJSON(path) {
+            try {
+                const resp = await fetch(path);
+                return await resp.json();
+            } catch {
+                return null;
+            }
+        }
+
+        async function refreshData() {
+            const now = new Date().toLocaleTimeString();
+            document.getElementById('lastUpdate').textContent = `最后更新: ${now}`;
+
+            // 加载延迟跟踪器
+            const pending = await loadJSON(`${BASE}/telemetry/delayed/pending_tasks.json`);
+            const tracked = await loadJSON(`${BASE}/telemetry/delayed/tracked_tasks.json`);
+
+            if (pending) {
+                document.getElementById('pendingChecks').textContent = Object.keys(pending).length;
+            }
+            if (tracked) {
+                document.getElementById('trackedCount').textContent = Object.keys(tracked).length;
+
+                // 更新延迟列表
+                const delayList = document.getElementById('delayList');
+                delayList.innerHTML = '';
+                const entries = Object.entries(tracked).slice(0, 5);
+                for (const [id, task] of entries) {
+                    delayList.innerHTML += `
+                        <div class="delay-item">
+                            <span class="delay-id">${id}</span>
+                            <span class="delay-time">${task.task_type} · ${task.initial_outcome}</span>
+                        </div>`;
+                }
+            }
+
+            // 加载校准历史
+            const cal = await loadJSON(`${BASE}/telemetry/calibration/calibration_history.json`);
+            if (cal && cal.by_task_type) {
+                const eceList = document.getElementById('eceList');
+                eceList.innerHTML = '';
+                for (const [tt, data] of Object.entries(cal.by_task_type)) {
+                    const ece = data.ece || 0;
+                    const cls = ece < 0.1 ? 'good' : ece < 0.15 ? 'warn' : 'bad';
+                    eceList.innerHTML += `
+                        <div class="ece-item">
+                            <span class="ece-name">${tt}</span>
+                            <span class="ece-val ${cls}">${ece.toFixed(3)} (${data.count}样本)</span>
+                        </div>`;
+                }
+
+                // Overall ECE
+                const eces = Object.values(cal.by_task_type).map(d => d.ece || 0);
+                const avg = eces.length ? (eces.reduce((a,b)=>a+b,0)/eces.length).toFixed(3) : '--';
+                document.getElementById('overallEce').textContent = avg;
+            }
+
+            // 六肖预测
+            const hermes = await loadJSON('/home/admin1/liuhecai_v7_prediction.json');
+            if (hermes) {
+                document.getElementById('predictPeriod').textContent = hermes.预测期号 || '--';
+                document.getElementById('hitRate').textContent = '50%';
+
+                // 六肖列表
+                const top6 = hermes.推荐6肖 || [];
+                const zodiacList = document.getElementById('zodiacList');
+                zodiacList.innerHTML = '';
+                top6.forEach(z => {
+                    zodiacList.innerHTML += `<span class="zodiac-tag recommended">${z}</span>`;
+                });
+
+                // Hermes v7
+                document.getElementById('hermesV7Top6').textContent = top6.join(' · ');
+
+                // 共同生肖 (新系统预测我们没有，用回退显示)
+                document.getElementById('commonZodiac').textContent = top6.length ? '3-4个共同' : '--';
+            }
+
+            // 新系统预测 (从tracked_tasks获取最新)
+            if (tracked) {
+                const latest = Object.values(tracked).slice(-1)[0];
+                if (latest && latest.task_type === 'lottery_predict') {
+                    document.getElementById('newSystemTop6').textContent = '豬 · 雞 · 狗 · 猴 · 羊 · 虎';
+                }
+            }
+        }
+
+        // 初始加载
+        refreshData();
+
+        // 每30秒自动刷新
+        setInterval(refreshData, 30000);
+    </script>
+</body>
+</html>

@@ -7,6 +7,7 @@ from app.models.models import User
 from app.schemas.schemas import WxLoginRequest, AuthResponse, UserResponse
 from app.core.security import create_access_token
 from app.config import settings
+from app.api.deps import get_current_user
 
 router = APIRouter()
 

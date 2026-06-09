@@ -1,0 +1,18 @@
+{
+  "vector_memory": {
+    "host": "localhost",
+    "port": 6333,
+    "collection_name": "ai_ecosystem_memory",
+    "vector_size": 768,
+    "distance": "cosine"
+  },
+  "retrieval": {
+    "short_term_max_items": 100,
+    "long_term_top_k": 5,
+    "consolidation_threshold": 5
+  },
+  "embeddings": {
+    "model": "nomic-embed-text",
+    "batch_size": 100
+  }
+}
