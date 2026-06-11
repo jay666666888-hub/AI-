@@ -1,0 +1,238 @@
+/* 时间线页面样式 - 日历视图 */
+
+.container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+/* ==================== 日历头部 ==================== */
+.calendar-header {
+  padding: 40rpx 30rpx 50rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 0 0 50rpx 50rpx;
+  box-shadow: 0 10rpx 40rpx rgba(102, 126, 234, 0.35);
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  width: 70rpx;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  font-size: 36rpx;
+  color: #ffffff;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.nav-btn:active {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0.95);
+}
+
+.current-month {
+  font-size: 40rpx;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  text-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.15);
+}
+
+/* ==================== 日历主体 ==================== */
+.calendar {
+  background: #ffffff;
+  margin: -30rpx 24rpx 0;
+  border-radius: 30rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 10rpx 40rpx rgba(0, 0, 0, 0.08);
+}
+
+/* 星期标题行 */
+.weekday-row {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 24rpx;
+  border-bottom: 2rpx solid #f5f7fa;
+  margin-bottom: 16rpx;
+}
+
+.weekday {
+  width: 64rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #aaa;
+  font-weight: 600;
+}
+
+.weekday:nth-child(1), .weekday:nth-child(7) {
+  color: #ccc;
+}
+
+/* 日期网格 */
+.days-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day-cell {
+  width: 14.28%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx 0;
+  position: relative;
+}
+
+.day-number {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.day-cell.inactive .day-number {
+  color: #ddd;
+}
+
+/* 今日 */
+.day-cell.today .day-number {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.4);
+}
+
+/* 选中 */
+.day-cell.selected .day-number {
+  background: #f5f7fa;
+  color: #667eea;
+  font-weight: 700;
+  border: 3rpx solid #667eea;
+}
+
+.day-cell:active .day-number {
+  transform: scale(0.9);
+}
+
+/* 日志指示圆点 */
+.log-dot {
+  width: 10rpx;
+  height: 10rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 8rpx;
+  box-shadow: 0 2rpx 8rpx rgba(102, 126, 234, 0.5);
+}
+
+.day-cell.selected .log-dot {
+  background: #667eea;
+}
+
+/* ==================== 选中日期标题 ==================== */
+.selected-date-header {
+  padding: 36rpx 30rpx 20rpx;
+}
+
+.selected-date-text {
+  font-size: 34rpx;
+  color: #333;
+  font-weight: 700;
+}
+
+/* ==================== 日志列表 ==================== */
+.log-list {
+  margin: 0 30rpx;
+  padding-bottom: 40rpx;
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.log-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
+}
+
+.log-icon {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf5 100%);
+  border-radius: 50%;
+  font-size: 40rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.log-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.log-title {
+  display: block;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-time {
+  display: block;
+  font-size: 24rpx;
+  color: #aaa;
+  margin-top: 8rpx;
+}
+
+/* ==================== 空状态 ==================== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 40rpx;
+  color: #ccc;
+}
+
+.empty-state text:first-child {
+  font-size: 34rpx;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+}
+
+.empty-hint {
+  font-size: 26rpx;
+  color: #bbb;
+  text-align: center;
+  line-height: 1.6;
+}

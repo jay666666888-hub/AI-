@@ -1,0 +1,50 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="detail-header">
+    <text class="project-title">{{project.title}}</text>
+    <text class="project-progress">{{project.progress || 0}}%</text>
+  </view>
+
+  <!-- 项目信息 -->
+  <view class="info-card">
+    <view class="info-row" wx:if="{{project.description}}">
+      <text class="info-label">描述</text>
+      <text class="info-value">{{project.description}}</text>
+    </view>
+    <view class="info-row" wx:if="{{project.goal}}">
+      <text class="info-label">目标</text>
+      <text class="info-value">{{project.goal}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">状态</text>
+      <text class="info-value status-{{project.status}}">{{project.status === 'active' ? '进行中' : project.status}}</text>
+    </view>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-section">
+    <view class="progress-bar-large">
+      <view class="progress-fill" style="width: {{project.progress || 0}}%"></view>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="tasks-section">
+    <view class="section-header">
+      <text class="section-title">项目任务</text>
+      <view class="add-task-btn" bindtap="goToCreateTask">+ 添加任务</view>
+    </view>
+    <view class="task-list">
+      <view class="task-item {{item.status === 'completed' ? 'completed' : ''}}" wx:for="{{tasks}}" wx:key="id">
+        <view class="task-info">
+          <text class="task-icon">{{item.type === 'habit' ? '🔥' : '📋'}}</text>
+          <text class="task-title">{{item.title}}</text>
+        </view>
+        <view class="circle-btn {{item.status === 'completed' ? 'done' : ''}}" bindtap="toggleTask" data-id="{{item.id}}">
+          {{item.status === 'completed' ? '✓' : '○'}}
+        </view>
+      </view>
+      <view class="empty-state" wx:if="{{!tasks.length}}">暂无任务</view>
+    </view>
+  </view>
+</view>

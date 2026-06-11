@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from typing import List
@@ -7,8 +7,11 @@ from app.database import get_db
 from app.models.models import User, Project, ProjectLog
 from app.schemas.schemas import ProjectCreate, ProjectUpdate, ProjectResponse
 from app.api.deps import get_current_user
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 
 router = APIRouter()
+limiter = Limiter(key_func=get_remote_address)
 
 @router.get("", response_model=List[ProjectResponse])
 async def get_projects(
@@ -23,29 +26,64 @@ async def get_projects(
         .order_by(Project.created_at.desc())
     )
     projects = result.scalars().all()
-    return [ProjectResponse.model_validate(p) for p in projects]
+    # Convert SQLAlchemy models to dicts
+    return [ProjectResponse.parse_obj({
+        "id": p.id,
+        "user_id": p.user_id,
+        "title": p.title,
+        "description": p.description,
+        "goal": p.goal,
+        "status": p.status,
+        "progress": p.progress,
+        "tags": p.tags,
+        "ai_metadata": p.ai_metadata,
+        "created_at": p.created_at,
+        "updated_at": p.updated_at,
+    }) for p in projects]
 
 @router.post("", response_model=ProjectResponse)
+@limiter.limit("20/minute")
 async def create_project(
+    request: Request,
     project_data: ProjectCreate,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db)
 ):
     """创建项目"""
-    project = Project(**project_data.model_dump(), user_id=current_user.id)
-    db.add(project)
+    print(f"DEBUG - current_user.id: {current_user.id}")
+    print(f"DEBUG - project_data: {project_data}")
+    try:
+        project = Project(**project_data.dict(), user_id=current_user.id)
+        db.add(project)
 
-    # 记录日志
-    log = ProjectLog(
-        project_id=project.id,
-        action="created_project",
-        content=f"创建项目: {project_data.title}"
-    )
-    db.add(log)
+        # 记录日志
+        log = ProjectLog(
+            project_id=project.id,
+            action="created_project",
+            content=f"创建项目: {project_data.title}"
+        )
+        db.add(log)
 
-    await db.commit()
-    await db.refresh(project)
-    return ProjectResponse.model_validate(project)
+        await db.commit()
+        await db.refresh(project)
+        # Convert SQLAlchemy model to dict for Pydantic v1
+        project_dict = {
+            "id": project.id,
+            "user_id": project.user_id,
+            "title": project.title,
+            "description": project.description,
+            "goal": project.goal,
+            "status": project.status,
+            "progress": project.progress,
+            "tags": project.tags,
+            "ai_metadata": project.ai_metadata,
+            "created_at": project.created_at,
+            "updated_at": project.updated_at,
+        }
+        return ProjectResponse.parse_obj(project_dict)
+    except Exception as e:
+        print(f"DEBUG - Exception: {str(e)}")
+        raise
 
 @router.get("/{project_id}", response_model=ProjectResponse)
 async def get_project(
@@ -62,7 +100,21 @@ async def get_project(
     project = result.scalar_one_or_none()
     if project is None:
         raise HTTPException(status_code=404, detail="项目不存在")
-    return ProjectResponse.model_validate(project)
+    # Convert SQLAlchemy model to dict
+    project_dict = {
+        "id": project.id,
+        "user_id": project.user_id,
+        "title": project.title,
+        "description": project.description,
+        "goal": project.goal,
+        "status": project.status,
+        "progress": project.progress,
+        "tags": project.tags,
+        "ai_metadata": project.ai_metadata,
+        "created_at": project.created_at,
+        "updated_at": project.updated_at,
+    }
+    return ProjectResponse.parse_obj(project_dict)
 
 @router.put("/{project_id}", response_model=ProjectResponse)
 async def update_project(
@@ -81,7 +133,7 @@ async def update_project(
     if project is None:
         raise HTTPException(status_code=404, detail="项目不存在")
 
-    update_data = project_data.model_dump(exclude_unset=True)
+    update_data = project_data.dict(exclude_unset=True)
     for field, value in update_data.items():
         setattr(project, field, value)
 
@@ -95,7 +147,21 @@ async def update_project(
 
     await db.commit()
     await db.refresh(project)
-    return ProjectResponse.model_validate(project)
+    # Convert SQLAlchemy model to dict
+    project_dict = {
+        "id": project.id,
+        "user_id": project.user_id,
+        "title": project.title,
+        "description": project.description,
+        "goal": project.goal,
+        "status": project.status,
+        "progress": project.progress,
+        "tags": project.tags,
+        "ai_metadata": project.ai_metadata,
+        "created_at": project.created_at,
+        "updated_at": project.updated_at,
+    }
+    return ProjectResponse.parse_obj(project_dict)
 
 @router.delete("/{project_id}")
 async def delete_project(

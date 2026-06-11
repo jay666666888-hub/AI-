@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/tasks/index",
+    "pages/tasks/create",
+    "pages/tasks/detail",
+    "pages/projects/index",
+    "pages/projects/detail",
+    "pages/mine/index",
+    "pages/habits/index",
+    "pages/inbox/index",
+    "pages/memory/index",
+    "pages/notifications/index",
+    "pages/timeline/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "第二大脑",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#667eea",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home-active.png"
+      },
+      {
+        "pagePath": "pages/tasks/index",
+        "text": "任务",
+        "iconPath": "images/tasks.png",
+        "selectedIconPath": "images/tasks-active.png"
+      },
+      {
+        "pagePath": "pages/projects/index",
+        "text": "项目",
+        "iconPath": "images/projects.png",
+        "selectedIconPath": "images/projects-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "images/mine.png",
+        "selectedIconPath": "images/mine-active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

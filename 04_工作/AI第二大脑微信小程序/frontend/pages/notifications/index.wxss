@@ -1,0 +1,86 @@
+/* ==================== 渐变头部 ==================== */
+.notifications-header {
+  height: 15vh;
+  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.notifications-header .page-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: white;
+}
+
+/* ==================== 内容区 ==================== */
+.notifications-content {
+  margin-top: -40rpx;
+  padding-bottom: 48rpx;
+}
+
+/* ==================== 玻璃态卡片 ==================== */
+.notification-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 0 24rpx 24rpx;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+/* ==================== 通知项 ==================== */
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item.read {
+  opacity: 0.6;
+}
+
+.notification-item .notif-icon {
+  font-size: 40rpx;
+  margin-right: 24rpx;
+}
+
+.notification-item .notif-content {
+  flex: 1;
+}
+
+.notification-item .notif-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  display: block;
+}
+
+.notification-item .notif-text {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.notification-item .notif-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+  display: block;
+}
+
+.notification-item .unread-dot {
+  width: 16rpx;
+  height: 16rpx;
+  background: #ef4444;
+  border-radius: 50%;
+  margin-left: 16rpx;
+}

@@ -1,0 +1,36 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="tasks-header">
+    <text class="page-title">任务中心</text>
+    <view class="type-tabs">
+      <view class="tab {{currentType === '全部' ? 'active' : ''}}" bindtap="switchType" data-type="全部">全部</view>
+      <view class="tab {{currentType === 'Todo' ? 'active' : ''}}" bindtap="switchType" data-type="Todo">Todo</view>
+      <view class="tab {{currentType === 'Habit' ? 'active' : ''}}" bindtap="switchType" data-type="Habit">Habit</view>
+      <view class="tab {{currentType === 'Schedule' ? 'active' : ''}}" bindtap="switchType" data-type="Schedule">Schedule</view>
+    </view>
+  </view>
+
+  <!-- 任务列表 -->
+  <view class="tasks-content">
+    <view class="task-card">
+      <view class="task-list">
+        <view class="task-item {{item.status === 'completed' ? 'completed' : ''}}" wx:for="{{tasks}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <view class="task-left">
+            <text class="task-icon">{{item.type === 'habit' ? '🔥' : '📋'}}</text>
+            <view class="task-info">
+              <text class="task-title">{{item.title}}</text>
+              <text class="task-meta">{{item.type === 'habit' ? '习惯' : '任务'}}</text>
+            </view>
+          </view>
+          <view class="circle-btn {{item.status === 'completed' ? 'done' : ''}}" catchtap="completeTask" data-id="{{item.id}}">
+            {{item.status === 'completed' ? '✓' : '○'}}
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{!tasks.length}}">暂无任务</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab" bindtap="goToCreate">+</view>
+</view>

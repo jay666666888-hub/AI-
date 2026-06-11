@@ -1,0 +1,28 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="notifications-header">
+    <text class="page-title">🔔 通知中心</text>
+  </view>
+
+  <!-- 通知列表 -->
+  <view class="notifications-content">
+    <view class="notification-card">
+      <view class="notification-list">
+        <view class="notification-item {{item.is_read ? 'read' : ''}}"
+              wx:for="{{notifications}}"
+              wx:key="id"
+              bindtap="markAsRead"
+              data-id="{{item.id}}">
+          <text class="notif-icon">{{item.type === 'task' ? '📋' : item.type === 'habit' ? '🔥' : '🔔'}}</text>
+          <view class="notif-content">
+            <text class="notif-title">{{item.title}}</text>
+            <text class="notif-text">{{item.content}}</text>
+            <text class="notif-time">{{item.created_at}}</text>
+          </view>
+          <view class="unread-dot" wx:if="{{!item.is_read}}"></view>
+        </view>
+        <view class="empty-state" wx:if="{{!notifications.length}}">暂无通知</view>
+      </view>
+    </view>
+  </view>
+</view>

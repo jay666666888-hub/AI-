@@ -1,0 +1,36 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="inbox-header">
+    <text class="page-title">📥 Inbox</text>
+    <text class="inbox-count">{{notes.length}}条待整理</text>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="input-area">
+    <view class="input-card">
+      <view class="input-row">
+        <input class="note-input" placeholder="记下此刻的想法..." value="{{newNoteText}}" bindinput="onInput" confirm-type="send" bindconfirm="createNote" />
+        <view class="submit-btn" bindtap="createNote">添加</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 笔记列表 -->
+  <view class="notes-list">
+    <view class="note-card">
+      <view class="note-list">
+        <view class="note-item" wx:for="{{notes}}" wx:key="id" bindlongpress="showActionSheet" data-id="{{item.id}}" data-content="{{item.content}}">
+          <view class="note-content">
+            <text class="note-text">{{item.content}}</text>
+            <text class="note-time">{{item.created_at}}</text>
+          </view>
+          <view class="delete-btn" bindtap="deleteNote" data-id="{{item.id}}">×</view>
+        </view>
+        <view class="empty-state" wx:if="{{!notes.length}}">
+          <text>暂无记录</text>
+          <text class="empty-hint">长按可快速转化</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 头部 -->
+  <view class="detail-header">
+    <text class="task-title">{{task.title}}</text>
+    <view class="header-actions">
+      <view class="action-btn {{task.status === 'completed' ? 'done' : ''}}" bindtap="toggleComplete">
+        {{task.status === 'completed' ? '✓' : '○'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 任务信息 -->
+  <view class="info-card">
+    <view class="info-row">
+      <text class="info-label">类型</text>
+      <text class="info-value type-badge type-{{task.type}}">{{task.type}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">优先级</text>
+      <text class="info-value priority-{{task.priority}}">{{task.priority}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">状态</text>
+      <text class="info-value status-{{task.status}}">{{task.status === 'active' ? '进行中' : task.status === 'completed' ? '已完成' : task.status}}</text>
+    </view>
+    <view class="info-row" wx:if="{{task.project}}">
+      <text class="info-label">所属项目</text>
+      <text class="info-value project-name">{{task.project.title}}</text>
+    </view>
+    <view class="info-row" wx:if="{{task.due_date}}">
+      <text class="info-label">截止日期</text>
+      <text class="info-value">{{task.due_date}}</text>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="detail-section" wx:if="{{task.detail}}">
+    <text class="section-title">备注</text>
+    <view class="detail-content">{{task.detail}}</view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <view class="action-btn-large complete-btn" bindtap="toggleComplete">
+      {{task.status === 'completed' ? '取消完成' : '完成任务'}}
+    </view>
+    <view class="action-btn-large delete-btn" bindtap="deleteTask">删除任务</view>
+  </view>
+</view>

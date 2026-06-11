@@ -1,0 +1,37 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="projects-header">
+    <text class="page-title">📁 项目列表</text>
+    <view class="add-btn" bindtap="showCreateModal">+ 新建项目</view>
+  </view>
+
+  <!-- 项目列表 -->
+  <view class="projects-content">
+    <view class="project-card">
+      <view class="project-list">
+        <view class="project-item" wx:for="{{projects}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <view class="project-top">
+            <text class="project-title">📁 {{item.title}}</text>
+            <text class="project-percent">{{item.progress || 0}}%</text>
+          </view>
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress || 0}}%"></view>
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{!projects.length}}">暂无项目</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新建项目弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="hideModal">
+    <view class="modal-content" catchtap="preventTap">
+      <text class="modal-title">新建项目</text>
+      <input class="modal-input" placeholder="输入项目名称..." value="{{newProjectTitle}}" bindinput="onTitleInput" focus="{{showModal}}" />
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideModal">取消</view>
+        <view class="modal-btn confirm" bindtap="confirmCreate">创建</view>
+      </view>
+    </view>
+  </view>
+</view>

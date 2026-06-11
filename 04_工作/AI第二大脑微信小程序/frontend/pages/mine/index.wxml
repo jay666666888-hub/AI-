@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="mine-header">
+    <view class="user-avatar">👤</view>
+    <text class="user-name">{{userInfo.nickname || '用户'}}</text>
+    <text class="user-email">{{userInfo.email || ''}}</text>
+  </view>
+
+  <!-- 菜单列表 -->
+  <view class="mine-content">
+    <view class="mine-card">
+      <view class="menu-item" bindtap="goToHabits">
+        <view class="menu-icon-wrapper habits">
+          <text class="menu-icon">🔥</text>
+        </view>
+        <text class="menu-text">习惯打卡</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToTimeline">
+        <view class="menu-icon-wrapper timeline">
+          <text class="menu-icon">📅</text>
+        </view>
+        <text class="menu-text">日历</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToMemory">
+        <view class="menu-icon-wrapper memory">
+          <text class="menu-icon">🧠</text>
+        </view>
+        <text class="menu-text">记忆库</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToNotifications">
+        <view class="menu-icon-wrapper notify">
+          <text class="menu-icon">🔔</text>
+        </view>
+        <text class="menu-text">通知中心</text>
+        <text class="menu-arrow">›</text>
+      </view>
+      <view class="menu-item" bindtap="goToSettings">
+        <view class="menu-icon-wrapper settings">
+          <text class="menu-icon">⚙️</text>
+        </view>
+        <text class="menu-text">设置</text>
+        <text class="menu-arrow">›</text>
+      </view>
+    </view>
+  </view>
+</view>

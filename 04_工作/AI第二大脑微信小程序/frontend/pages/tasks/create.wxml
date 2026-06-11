@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="create-header">
+    <text class="page-title">新建任务</text>
+    <view class="close-btn" bindtap="onClose">×</view>
+  </view>
+
+  <view class="form-group">
+    <input class="task-input" placeholder="任务标题" value="{{title}}" bindinput="onTitleInput" />
+  </view>
+
+  <view class="form-group">
+    <text class="label">任务类型</text>
+    <view class="type-selector">
+      <view class="type-option {{type === 'todo' ? 'active' : ''}}" bindtap="selectType" data-type="todo">📋 Todo</view>
+      <view class="type-option {{type === 'habit' ? 'active' : ''}}" bindtap="selectType" data-type="habit">🔥 习惯</view>
+      <view class="type-option {{type === 'schedule' ? 'active' : ''}}" bindtap="selectType" data-type="schedule">📅 计划</view>
+      <view class="type-option {{type === 'waiting' ? 'active' : ''}}" bindtap="selectType" data-type="waiting">⏳ 等待</view>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <text class="label">优先级</text>
+    <view class="priority-selector">
+      <view class="priority-option {{priority === 1 ? 'active' : ''}}" bindtap="selectPriority" data-priority="1">1</view>
+      <view class="priority-option {{priority === 2 ? 'active' : ''}}" bindtap="selectPriority" data-priority="2">2</view>
+      <view class="priority-option {{priority === 3 ? 'active' : ''}}" bindtap="selectPriority" data-priority="3">3</view>
+      <view class="priority-option {{priority === 4 ? 'active' : ''}}" bindtap="selectPriority" data-priority="4">4</view>
+      <view class="priority-option {{priority === 5 ? 'active' : ''}}" bindtap="selectPriority" data-priority="5">5</view>
+    </view>
+  </view>
+
+  <view class="form-group">
+    <text class="label">关联项目</text>
+    <picker mode="selector" range="{{projects}}" range-key="title" bindchange="onProjectChange">
+      <view class="picker-value">{{selectedProjectTitle || '无'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-group">
+    <text class="label">备注</text>
+    <textarea class="detail-input" placeholder="添加备注..." value="{{detail}}" bindinput="onDetailInput" />
+  </view>
+
+  <view class="submit-btn" bindtap="onSubmit">创建任务</view>
+</view>

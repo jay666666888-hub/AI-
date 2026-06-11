@@ -1,0 +1,44 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="habits-header">
+    <text class="date-text">📅 2026年6月11日</text>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-num">{{stats.weekly_completed || 0}}/{{stats.weekly_expected || 1}}</text>
+        <text class="stat-label">本周完成</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{stats.monthly_completed || 0}}/{{stats.monthly_expected || 1}}</text>
+        <text class="stat-label">本月完成</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-num">{{stats.streak || 0}}</text>
+        <text class="stat-label">连续天数</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 习惯列表 -->
+  <view class="habits-content">
+    <view class="habit-card">
+      <view class="section-header">
+        <text class="section-title">🔥 今日习惯</text>
+      </view>
+      <view class="habit-list">
+        <view class="habit-item" wx:for="{{habits}}" wx:key="id">
+          <view class="habit-top">
+            <view class="habit-info">
+              <text class="habit-icon">☀️</text>
+              <text class="habit-title">{{item.title}}</text>
+            </view>
+            <text class="habit-time">{{item.is_completed_today ? item.last_logged_at : '--:--'}}</text>
+          </view>
+          <view class="checkin-btn {{item.is_completed_today ? 'completed' : ''}}" bindtap="logHabit" data-id="{{item.id}}">
+            {{item.is_completed_today ? '✓ 已打卡' : '打卡'}}
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{!habits.length}}">暂无习惯</view>
+      </view>
+    </view>
+  </view>
+</view>

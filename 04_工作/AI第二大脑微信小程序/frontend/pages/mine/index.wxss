@@ -1,0 +1,114 @@
+/* ==================== 渐变头部 ==================== */
+.mine-header {
+  height: 30vh;
+  background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mine-header .user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15);
+}
+
+.mine-header .user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: white;
+}
+
+.mine-header .user-email {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8rpx;
+}
+
+/* ==================== 内容区 ==================== */
+.mine-content {
+  margin-top: -40rpx;
+  padding-bottom: 48rpx;
+}
+
+/* ==================== 玻璃态卡片 ==================== */
+.mine-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24rpx;
+  margin: 0 24rpx 24rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.06);
+}
+
+/* ==================== 菜单项 ==================== */
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.06);
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon-wrapper {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+}
+
+.menu-icon-wrapper.habits {
+  background: linear-gradient(135deg, #ff6b6b0%, #ee5a24 100%);
+  box-shadow: 0 4rpx 12rpx rgba(238, 90, 36, 0.3);
+}
+
+.menu-icon-wrapper.memory {
+  background: linear-gradient(135deg, #5f27cd 0%, #341f97 100%);
+  box-shadow: 0 4rpx 12rpx rgba(52, 31, 151, 0.3);
+}
+
+.menu-icon-wrapper.notify {
+  background: linear-gradient(135deg, #ffcc00 0%, #ff9500 100%);
+  box-shadow: 0 4rpx 12rpx rgba(255, 149, 0, 0.3);
+}
+
+.menu-icon-wrapper.settings {
+  background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+  box-shadow: 0 4rpx 12rpx rgba(71, 85, 105, 0.3);
+}
+
+.menu-icon-wrapper.timeline {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.menu-icon-wrapper .menu-icon {
+  font-size: 36rpx;
+}
+
+.menu-item .menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu-item .menu-arrow {
+  font-size: 28rpx;
+  color: #999;
+}

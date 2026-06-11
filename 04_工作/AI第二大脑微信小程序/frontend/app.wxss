@@ -1,0 +1,161 @@
+/* ==================== 全局变量 ==================== */
+page {
+  /* 渐变色调 */
+  --gradient-start: #a78bfa;
+  --gradient-end: #f472b6;
+  --gradient: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+
+  /* 玻璃态 */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-blur: blur(20px);
+  --webkit-glass-blur: blur(20px);
+
+  /* 功能色 */
+  --color-primary: #8b5cf6;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
+  /* 文字色 */
+  --color-text: #1a1a1a;
+  --color-text-secondary: #333333;
+  --color-text-hint: #666666;
+  --color-text-weaker: #999999;
+
+  /* 背景色 */
+  --color-bg: #f8fafc;
+  --color-card: #ffffff;
+
+  /* 间距 */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 12rpx;
+  --spacing-md: 16rpx;
+  --spacing-lg: 24rpx;
+  --spacing-xl: 32rpx;
+  --spacing-xxl: 48rpx;
+
+  /* 圆角 */
+  --radius-sm: 12rpx;
+  --radius-md: 20rpx;
+  --radius-lg: 24rpx;
+  --radius-full: 9999rpx;
+
+  /* 阴影 */
+  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8rpx 32rpx rgba(0, 0, 0, 0.12);
+}
+
+/* ==================== 基础样式 ==================== */
+.container {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* ==================== 渐变区 ==================== */
+.gradient-header {
+  height: 35vh;
+  background: var(--gradient);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-lg);
+  box-sizing: border-box;
+}
+
+.gradient-header .stats-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.gradient-header .stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.gradient-header .stat-num {
+  display: block;
+  font-size: 56rpx;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.gradient-header .stat-label {
+  display: block;
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4rpx;
+}
+
+/* ==================== 玻璃态卡片 ==================== */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--webkit-glass-blur);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  margin: 0 var(--spacing-lg);
+}
+
+.glass-card + .glass-card {
+  margin-top: var(--spacing-lg);
+}
+
+/* ==================== 通用卡片 ==================== */
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin: 0 var(--spacing-lg) var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==================== 区块标题 ==================== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.section-more {
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+
+/* ==================== 渐变按钮 ==================== */
+.gradient-btn {
+  background: var(--gradient);
+  color: white;
+  border-radius: var(--radius-full);
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.gradient-btn:active {
+  opacity: 0.8;
+  transform: scale(0.96);
+}
+
+/* ==================== 空状态 ==================== */
+.empty-state {
+  text-align: center;
+  color: var(--color-text-weaker);
+  padding: var(--spacing-xl) 0;
+  font-size: 26rpx;
+}

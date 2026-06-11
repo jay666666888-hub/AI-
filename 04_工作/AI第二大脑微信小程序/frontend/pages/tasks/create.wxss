@@ -1,0 +1,127 @@
+/* ==================== 创建任务页面 ==================== */
+.container {
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.create-header {
+  height: 120rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: white;
+}
+
+.close-btn {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.form-group {
+  background: white;
+  margin: 24rpx;
+  padding: 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  display: block;
+}
+
+.task-input {
+  height: 80rpx;
+  padding: 0 24rpx;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+}
+
+.type-selector {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.type-option {
+  padding: 16rpx 24rpx;
+  background: #f0f0f0;
+  border-radius: 24rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.type-option.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.priority-selector {
+  display: flex;
+  gap: 16rpx;
+}
+
+.priority-option {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.priority-option.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.picker-value {
+  padding: 20rpx 24rpx;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.detail-input {
+  width: 100%;
+  min-height: 200rpx;
+  padding: 24rpx;
+  background: #f8fafc;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.submit-btn {
+  margin: 32rpx 24rpx;
+  height: 96rpx;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  font-weight: 500;
+}

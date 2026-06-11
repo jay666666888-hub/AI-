@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import Optional, List
 
 from sqlalchemy import (
-    Column, String, Text, Integer, Boolean, DateTime, ForeignKey,
+    Column, String, Text, Integer, Boolean, DateTime, Date, ForeignKey,
     JSON, ARRAY
 )
 from sqlalchemy.dialects.postgresql import UUID, JSONB, ARRAY as PG_ARRAY
@@ -21,13 +21,17 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    identifier = Column(Text, nullable=False)
+    meta_data = Column("metadata", JSONB, nullable=True)  # 映射到 metadata 列
+    createdAt = Column(Text, nullable=True)
     wx_openid = Column(String(128), unique=True, nullable=True, index=True)
     wx_unionid = Column(String(128), unique=True, nullable=True, index=True)
     nickname = Column(String(64), nullable=True)
     avatar_url = Column(String(512), nullable=True)
     phone = Column(String(32), nullable=True, index=True)
+    telegram_id = Column(String(64), unique=True, nullable=True, index=True)
+    telegram_username = Column(String(64), nullable=True)
     ai_metadata = Column(JSONB, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = Column(DateTime, nullable=True)
 
@@ -241,3 +245,20 @@ class Notification(Base):
 
     # Relationships
     user = relationship("User", back_populates="notifications")
+
+
+class DailyLog(Base):
+    """每日完成日志表"""
+    __tablename__ = "daily_logs"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
+    date = Column(Date, nullable=False, index=True)  # 日期
+    entity_type = Column(String(32), nullable=True, index=True)  # task/habit
+    entity_id = Column(UUID(as_uuid=True), nullable=True)
+    title = Column(String(256), nullable=False)
+    completed_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    # Relationships
+    user = relationship("User")

@@ -1,0 +1,49 @@
+<view class="container">
+  <!-- 日历头部 -->
+  <view class="calendar-header">
+    <view class="month-nav">
+      <text class="nav-btn" bindtap="prevMonth">‹</text>
+      <text class="current-month">{{currentYear}}年{{currentMonth}}月</text>
+      <text class="nav-btn" bindtap="nextMonth">›</text>
+    </view>
+  </view>
+
+  <!-- 日历主体 -->
+  <view class="calendar">
+    <!-- 星期标题 -->
+    <view class="weekday-row">
+      <text class="weekday" wx:for="{{weekdays}}" wx:key="*">{{item}}</text>
+    </view>
+
+    <!-- 日期网格 -->
+    <view class="days-grid">
+      <view class="day-cell {{item.isToday ? 'today' : ''}} {{item.isSelected ? 'selected' : ''}}"
+            wx:for="{{calendarDays}}"
+            wx:key="date"
+            bindtap="selectDate"
+            data-date="{{item.dateStr}}">
+        <text class="day-number {{!item.isCurrentMonth ? 'inactive' : ''}}">{{item.day}}</text>
+        <view class="log-dot" wx:if="{{item.hasLogs}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选中日期的日志列表 -->
+  <view class="selected-date-header">
+    <text class="selected-date-text">{{selectedDateStr}}</text>
+  </view>
+
+  <view class="log-list">
+    <view class="log-item" wx:for="{{logs}}" wx:key="id">
+      <view class="log-icon">{{item.entity_type === 'habit' ? '🔥' : '✓'}}</view>
+      <view class="log-content">
+        <text class="log-title">{{item.title}}</text>
+        <text class="log-time">{{item.completed_at}}</text>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="{{logs.length === 0}}">
+      <text>暂无完成记录</text>
+      <text class="empty-hint">完成任务后会自动记录到这里</text>
+    </view>
+  </view>
+</view>

@@ -1,52 +1,97 @@
 <view class="container">
-  <view class="inbox-card" bindtap="goToInbox">
-    <view class="inbox-icon">📥</view>
-    <view class="inbox-info">
-      <text class="inbox-title">Inbox（待整理）</text>
-      <text class="inbox-count">{{inboxCount}}条</text>
-    </view>
-    <view class="arrow">›</view>
-  </view>
-
-  <view class="section">
-    <text class="section-title">今日定时任务</text>
-    <view class="task-list" wx:if="{{todayTimedTasks.length}}">
-      <view class="task-item" wx:for="{{todayTimedTasks}}" wx:key="id">
-        <text class="task-time">{{item.scheduled_time}}</text>
-        <text class="task-title">{{item.title}}</text>
+  <!-- 渐变头部 -->
+  <view class="index-header">
+    <text class="date-text">📅 2026年6月11日</text>
+    <view class="stats-row">
+      <view class="stat-item">
+        <text class="stat-icon">📥</text>
+        <text class="stat-num">{{inboxCount}}</text>
+        <text class="stat-label">Inbox</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-icon">✓</text>
+        <text class="stat-num">{{completedToday}}</text>
+        <text class="stat-label">已完成</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-icon">🔥</text>
+        <text class="stat-num">{{streak}}</text>
+        <text class="stat-label">连续打卡</text>
       </view>
     </view>
-    <view class="empty" wx:else><text>暂无定时任务</text></view>
   </view>
 
-  <view class="section">
-    <text class="section-title">今日自由任务</text>
-    <view class="task-list" wx:if="{{todayFreeTasks.length}}">
-      <view class="task-item" wx:for="{{todayFreeTasks}}" wx:key="id">
-        <checkbox-group>
-          <label>
-            <checkbox checked="{{item.status === 'completed'}}"/>
-            <text class="task-title">{{item.title}}</text>
-          </label>
-        </checkbox-group>
+  <!-- 内容区 -->
+  <view class="index-content">
+    <!-- 今日习惯 -->
+    <view class="index-card">
+      <view class="section-header">
+        <text class="section-title">🔥 今日习惯</text>
+        <text class="section-more" bindtap="goToHabits">查看全部 ›</text>
       </view>
-    </view>
-    <view class="empty" wx:else><text>暂无自由任务</text></view>
-  </view>
-
-  <view class="section">
-    <text class="section-title">进行中的项目</text>
-    <view class="project-list" wx:if="{{projects.length}}">
-      <view class="project-item" wx:for="{{projects}}" wx:key="id" bindtap="goToProject" data-id="{{item.id}}">
-        <text class="project-title">{{item.title}}</text>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: {{item.progress}}%"></view>
+      <view class="habit-list">
+        <view class="list-item" wx:for="{{todayHabits}}" wx:key="id">
+          <view class="item-left">
+            <text class="item-icon">☀️</text>
+            <view class="item-info">
+              <text class="item-title">{{item.title}}</text>
+              <text class="item-subtitle">{{item.scheduled_time || '--:--'}}</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <view class="status-dot {{item.is_completed_today ? 'done' : 'pending'}}">
+              {{item.is_completed_today ? '✓' : '○'}}
+            </view>
+          </view>
         </view>
-        <text class="progress-text">{{item.progress}}%</text>
+        <view class="empty-state" wx:if="{{!todayHabits.length}}">暂无习惯</view>
       </view>
     </view>
-    <view class="empty" wx:else><text>暂无项目</text></view>
-  </view>
 
-  <view class="fab" bindtap="quickAdd">+</view>
+    <!-- 今日任务 -->
+    <view class="index-card">
+      <view class="section-header">
+        <text class="section-title">📋 今日任务</text>
+        <text class="section-more" bindtap="goToTasks">查看全部 ›</text>
+      </view>
+      <view class="task-list">
+        <view class="list-item" wx:for="{{todayTasks}}" wx:key="id">
+          <view class="item-left">
+            <text class="item-icon">⏰</text>
+            <view class="item-info">
+              <text class="item-title">{{item.title}}</text>
+              <text class="item-subtitle">{{item.scheduled_time || ''}}</text>
+            </view>
+          </view>
+          <view class="item-right">
+            <view class="status-dot {{item.status === 'completed' ? 'done' : 'pending'}}" bindtap="completeTask" data-id="{{item.id}}">
+              {{item.status === 'completed' ? '✓' : '○'}}
+            </view>
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{!todayTasks.length}}">暂无任务</view>
+      </view>
+    </view>
+
+    <!-- 进行中项目 -->
+    <view class="index-card">
+      <view class="section-header">
+        <text class="section-title">📁 进行中项目</text>
+        <text class="section-more" bindtap="goToProjects">查看全部 ›</text>
+      </view>
+      <view class="project-list">
+        <view class="list-item" wx:for="{{activeProjects}}" wx:key="id">
+          <view class="item-left">
+            <text class="item-icon">📁</text>
+            <text class="item-title">{{item.title}}</text>
+          </view>
+          <view class="item-right">
+            <text class="progress-text">{{item.progress || 0}}%</text>
+            <text class="arrow-right">›</text>
+          </view>
+        </view>
+        <view class="empty-state" wx:if="{{!activeProjects.length}}">暂无项目</view>
+      </view>
+    </view>
+  </view>
 </view>

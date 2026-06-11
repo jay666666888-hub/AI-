@@ -1,0 +1,23 @@
+<view class="container">
+  <!-- 渐变头部 -->
+  <view class="memory-header">
+    <text class="page-title">🧠 记忆库</text>
+    <input class="search-input" placeholder="搜索记忆..." value="{{searchText}}" bindinput="onSearch" />
+  </view>
+
+  <!-- 记忆列表 -->
+  <view class="memory-content">
+    <view class="memory-card">
+      <view class="memory-list">
+        <view class="memory-item" wx:for="{{memories}}" wx:key="id">
+          <text class="memory-text">{{item.content}}</text>
+          <view class="memory-tags" wx:if="{{item.tags}}">
+            <text class="tag" wx:for="{{item.tags}}" wx:key="tag">#{{item.tag}}</text>
+          </view>
+          <text class="memory-time">{{item.created_at}}</text>
+        </view>
+        <view class="empty-state" wx:if="{{!memories.length}}">暂无记忆</view>
+      </view>
+    </view>
+  </view>
+</view>

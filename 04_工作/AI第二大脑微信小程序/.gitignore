@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# Environment
+.env
+.env.test
+.env.production
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.egg-info/
+dist/
+build/
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# Backend specific
+backend.tar.gz
+bot/
+venv/
+
+# Frontend
+frontend/services2/
+frontend/pages/calendar2/
+frontend/pages/mine2/
+frontend/pages/tasks2/

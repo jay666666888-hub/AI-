@@ -10,3 +10,4 @@ alembic==1.13.1
 python-multipart==0.0.9
 wechatpayv3==1.2.15
 httpx==0.26.0
+slowapi==0.1.9
