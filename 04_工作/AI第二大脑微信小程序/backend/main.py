@@ -5,7 +5,8 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from app.config import settings
 from app.api import auth, tasks, projects, notes, notifications
-from app.api import reminders, daily_logs, memories
+from app.api import reminders, daily_logs, memories, audit
+from app.core.logging import logger
 
 # Rate Limiter
 limiter = Limiter(key_func=get_remote_address)
@@ -30,14 +31,17 @@ app.include_router(notifications.router, prefix="/api/notifications", tags=["通
 app.include_router(reminders.router, prefix="/api/reminders", tags=["提醒"])
 app.include_router(daily_logs.router, prefix="/api/daily-logs", tags=["时间线"])
 app.include_router(memories.router, prefix="/api/memories", tags=["记忆库"])
+app.include_router(audit.router, prefix="/api", tags=["审计"])
 
 @app.on_event("startup")
 async def startup_event():
     """启动时运行调度器"""
+    logger.info("Application starting...")
     print("[Startup] Starting reminder scheduler...")
     from app.services.reminder_scheduler import start_scheduler
     start_scheduler()
     print("[Startup] Reminder scheduler started")
+    logger.info("Application started successfully")
 
 @app.get("/health")
 async def health_check():

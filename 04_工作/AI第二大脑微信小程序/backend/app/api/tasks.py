@@ -6,6 +6,7 @@ from uuid import UUID
 from datetime import datetime, timedelta
 from app.database import get_db
 from app.models.models import User, Task, HabitLog, ProjectLog
+from app.models.audit import AuditLog
 from app.schemas.schemas import (
     TaskCreate, TaskUpdate, TaskResponse, HabitLogCreate, HabitStatsResponse,
     HabitCreate, HabitUpdate
@@ -13,6 +14,7 @@ from app.schemas.schemas import (
 from app.api.deps import get_current_user
 from slowapi import Limiter
 from slowapi.util import get_remote_address
+from app.core.logging import logger
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
@@ -88,6 +90,19 @@ async def create_task(
 
     await db.commit()
     await db.refresh(task)
+
+    # 审计日志
+    audit_log = AuditLog(
+        user_id=current_user.id,
+        action="create_task",
+        entity_type="task",
+        entity_id=task.id,
+        details={"title": task.title, "type": task.type}
+    )
+    db.add(audit_log)
+    await db.commit()
+    logger.info(f"Task created: {task.id}", extra={"user_id": str(current_user.id), "action": "create_task", "entity_type": "task"})
+
     return TaskResponse.parse_obj(task_to_dict(task))
 
 
@@ -132,6 +147,19 @@ async def update_task(
 
     await db.commit()
     await db.refresh(task)
+
+    # 审计日志
+    audit_log = AuditLog(
+        user_id=current_user.id,
+        action="update_task",
+        entity_type="task",
+        entity_id=task.id,
+        details=update_data
+    )
+    db.add(audit_log)
+    await db.commit()
+    logger.info(f"Task updated: {task.id}", extra={"user_id": str(current_user.id), "action": "update_task", "entity_type": "task"})
+
     return TaskResponse.parse_obj(task_to_dict(task))
 
 
@@ -163,6 +191,19 @@ async def complete_task(
         db.add(log)
 
     await db.commit()
+
+    # 审计日志
+    audit_log = AuditLog(
+        user_id=current_user.id,
+        action="complete_task",
+        entity_type="task",
+        entity_id=task.id,
+        details={"title": task.title}
+    )
+    db.add(audit_log)
+    await db.commit()
+    logger.info(f"Task completed: {task.id}", extra={"user_id": str(current_user.id), "action": "complete_task", "entity_type": "task"})
+
     return {"message": "任务已完成"}
 
 
@@ -184,6 +225,19 @@ async def delete_task(
 
     task.deleted_at = datetime.utcnow()
     await db.commit()
+
+    # 审计日志
+    audit_log = AuditLog(
+        user_id=current_user.id,
+        action="delete_task",
+        entity_type="task",
+        entity_id=task_id,
+        details={"title": task.title}
+    )
+    db.add(audit_log)
+    await db.commit()
+    logger.info(f"Task deleted: {task_id}", extra={"user_id": str(current_user.id), "action": "delete_task", "entity_type": "task"})
+
     return {"message": "任务已删除"}
 
 
@@ -215,6 +269,19 @@ async def log_habit(
     db.add(habit_log)
     await db.commit()
     await db.refresh(habit_log)
+
+    # 审计日志
+    audit_log = AuditLog(
+        user_id=current_user.id,
+        action="log_habit",
+        entity_type="habit",
+        entity_id=task_id,
+        details={"status": log_data.status}
+    )
+    db.add(audit_log)
+    await db.commit()
+    logger.info(f"Habit logged: {task_id}", extra={"user_id": str(current_user.id), "action": "log_habit", "entity_type": "habit"})
+
     return {
         "message": "已记录",
         "log_id": str(habit_log.id),

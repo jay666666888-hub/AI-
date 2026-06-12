@@ -14,6 +14,7 @@ from app.models.models import (
     ProjectLog,
     Notification,
 )
+from app.models.audit import AuditLog
 
 __all__ = [
     "User",
@@ -27,4 +28,5 @@ __all__ = [
     "Attachment",
     "ProjectLog",
     "Notification",
+    "AuditLog",
 ]

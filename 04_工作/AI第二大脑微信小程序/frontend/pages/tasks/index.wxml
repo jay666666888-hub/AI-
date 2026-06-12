@@ -10,11 +10,30 @@
     </view>
   </view>
 
+  <!-- 批量操作栏 -->
+  <view class="batch-bar {{isBatchMode ? 'show' : ''}}" wx:if="{{isBatchMode}}">
+    <text class="batch-count">已选 {{selectedTasks.length}} 项</text>
+    <view class="batch-actions">
+      <view class="batch-btn complete" bindtap="batchComplete">完成</view>
+      <view class="batch-btn delete" bindtap="batchDelete">删除</view>
+      <view class="batch-btn cancel" bindtap="cancelBatch">取消</view>
+    </view>
+  </view>
+
   <!-- 任务列表 -->
   <view class="tasks-content">
     <view class="task-card">
       <view class="task-list">
-        <view class="task-item {{item.status === 'completed' ? 'completed' : ''}}" wx:for="{{tasks}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+        <view class="task-item {{item.status === 'completed' ? 'completed' : ''}} {{item.selected ? 'selected' : ''}}"
+          wx:for="{{tasks}}" wx:key="id"
+          bindtap="{{isBatchMode ? 'toggleSelect' : 'goToDetail'}}"
+          bindlongpress="showQuickActions"
+          data-id="{{item.id}}"
+          data-item="{{item}}">
+          <!-- 批量选择checkbox -->
+          <view class="batch-checkbox {{isBatchMode ? 'show' : ''}}" wx:if="{{isBatchMode}}">
+            <text class="checkbox-icon {{item.selected ? 'checked' : ''}}">{{item.selected ? '✓' : ''}}</text>
+          </view>
           <view class="task-left">
             <text class="task-icon">{{item.type === 'habit' ? '🔥' : '📋'}}</text>
             <view class="task-info">
