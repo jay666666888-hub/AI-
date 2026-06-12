@@ -17,9 +17,8 @@ Page({
 
   async loadTask() {
     try {
-      // 不传 status，获取所有任务（包括 active 和 completed）
-      const res = await app.request('/tasks')
-      const task = res.find(t => t.id === this.data.taskId)
+      // 直接获取单个任务详情
+      const task = await app.request(`/tasks/${this.data.taskId}`)
       if (task) {
         this.setData({ task })
       } else {
