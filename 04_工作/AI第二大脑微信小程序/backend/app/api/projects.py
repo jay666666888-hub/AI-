@@ -19,9 +19,30 @@ async def get_projects(
     db: AsyncSession = Depends(get_db)
 ):
     """获取用户的所有项目"""
-    # Debug: print the current user
-    print(f"DEBUG get_projects: current_user.id = {current_user.id}")
-    return []
+    result = await db.execute(
+        select(Project)
+        .where(Project.user_id == current_user.id)
+        .where(Project.deleted_at.is_(None))
+        .order_by(Project.created_at.desc())
+    )
+    projects = result.scalars().all()
+    # Convert SQLAlchemy models to dicts for Pydantic v1
+    return [
+        ProjectResponse.parse_obj({
+            "id": p.id,
+            "user_id": p.user_id,
+            "title": p.title,
+            "description": p.description,
+            "goal": p.goal,
+            "status": p.status,
+            "progress": p.progress,
+            "tags": list(p.tags) if p.tags else [],
+            "ai_metadata": dict(p.ai_metadata) if p.ai_metadata else None,
+            "created_at": p.created_at,
+            "updated_at": p.updated_at,
+        })
+        for p in projects
+    ]
 
 @router.post("", response_model=ProjectResponse)
 @limiter.limit("20/minute")
@@ -32,8 +53,6 @@ async def create_project(
     db: AsyncSession = Depends(get_db)
 ):
     """创建项目"""
-    print(f"DEBUG - current_user.id: {current_user.id}")
-    print(f"DEBUG - project_data: {project_data}")
     try:
         project = Project(**project_data.dict(), user_id=current_user.id)
         db.add(project)
@@ -57,14 +76,13 @@ async def create_project(
             "goal": project.goal,
             "status": project.status,
             "progress": project.progress,
-            "tags": project.tags,
-            "ai_metadata": project.ai_metadata,
+            "tags": list(project.tags) if project.tags else [],
+            "ai_metadata": dict(project.ai_metadata) if project.ai_metadata else None,
             "created_at": project.created_at,
             "updated_at": project.updated_at,
         }
         return ProjectResponse.parse_obj(project_dict)
     except Exception as e:
-        print(f"DEBUG - Exception: {str(e)}")
         raise
 
 @router.get("/{project_id}", response_model=ProjectResponse)
@@ -91,8 +109,8 @@ async def get_project(
         "goal": project.goal,
         "status": project.status,
         "progress": project.progress,
-        "tags": project.tags,
-        "ai_metadata": project.ai_metadata,
+        "tags": list(project.tags) if project.tags else [],
+        "ai_metadata": dict(project.ai_metadata) if project.ai_metadata else None,
         "created_at": project.created_at,
         "updated_at": project.updated_at,
     }
@@ -138,8 +156,8 @@ async def update_project(
         "goal": project.goal,
         "status": project.status,
         "progress": project.progress,
-        "tags": project.tags,
-        "ai_metadata": project.ai_metadata,
+        "tags": list(project.tags) if project.tags else [],
+        "ai_metadata": dict(project.ai_metadata) if project.ai_metadata else None,
         "created_at": project.created_at,
         "updated_at": project.updated_at,
     }
