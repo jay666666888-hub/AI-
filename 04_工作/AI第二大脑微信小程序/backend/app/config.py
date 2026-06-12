@@ -1,8 +1,8 @@
-try:
-    from pydantic_settings.base import BaseSettingsModel as BaseSettings
-except ImportError:
-    from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from functools import lru_cache
+import os
+
+from pydantic import ConfigDict
 
 class Settings(BaseSettings):
     APP_NAME: str = "AI第二大脑"
@@ -36,10 +36,12 @@ class Settings(BaseSettings):
     # Environment
     ENVIRONMENT: str = "development"  # development, staging, production
 
-    class Config:
-        env_file = ".env"
+    model_config = ConfigDict(
+        env_file=os.path.join(os.path.dirname(__file__), "..", ".env"),
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+    )
 
-@lru_cache()
 def get_settings() -> Settings:
     return Settings()
 

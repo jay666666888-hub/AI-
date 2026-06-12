@@ -19,27 +19,9 @@ async def get_projects(
     db: AsyncSession = Depends(get_db)
 ):
     """获取用户的所有项目"""
-    result = await db.execute(
-        select(Project)
-        .where(Project.user_id == current_user.id)
-        .where(Project.deleted_at.is_(None))
-        .order_by(Project.created_at.desc())
-    )
-    projects = result.scalars().all()
-    # Convert SQLAlchemy models to dicts
-    return [ProjectResponse.parse_obj({
-        "id": p.id,
-        "user_id": p.user_id,
-        "title": p.title,
-        "description": p.description,
-        "goal": p.goal,
-        "status": p.status,
-        "progress": p.progress,
-        "tags": p.tags,
-        "ai_metadata": p.ai_metadata,
-        "created_at": p.created_at,
-        "updated_at": p.updated_at,
-    }) for p in projects]
+    # Debug: print the current user
+    print(f"DEBUG get_projects: current_user.id = {current_user.id}")
+    return []
 
 @router.post("", response_model=ProjectResponse)
 @limiter.limit("20/minute")

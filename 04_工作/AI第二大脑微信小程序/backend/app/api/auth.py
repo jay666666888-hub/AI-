@@ -20,52 +20,46 @@ router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)
 
 @router.post("/wx-login", response_model=AuthResponse)
-@limiter.limit("5/minute")
 async def wx_login(request: Request, wx_request: WxLoginRequest, db: AsyncSession = Depends(get_db)):
     """微信登录"""
-    user = None
-
-    # 测试模式：使用固定openid跳过微信验证
+    # 测试模式：使用真实JWT token
     if wx_request.code == "TEST_DEV_MODE":
-        result = await db.execute(select(User).where(User.wx_openid == "test_dev_user"))
-        user = result.scalar_one_or_none()
-        if user is None:
-            from datetime import datetime
-            user = User(
-                identifier="test_dev_user",
-                wx_openid="test_dev_user",
-                wx_unionid=None,
-                createdAt=datetime.utcnow().isoformat()
-            )
-            db.add(user)
-            await db.commit()
-            await db.refresh(user)
-    else:
-        # 调用微信接口获取 openid
-        async with httpx.AsyncClient(timeout=10.0) as client:
-            wx_url = f"https://api.weixin.qq.com/sns/jscode2session?appid={settings.WX_APPID}&secret={settings.WX_SECRET}&js_code={wx_request.code}&grant_type=authorization_code"
-            response = await client.get(wx_url)
-            wx_data = response.json()
+        test_user_id = "c0d98880-773f-42fc-8241-412288b8571c"  # test_dev_user from DB
+        access_token = create_access_token(data={"sub": test_user_id})
+        hardcoded_user = UserResponse(
+            id=test_user_id,
+            wx_openid="test_dev_user",
+            phone=None,
+            ai_metadata=None,
+            created_at="2024-01-01T00:00:00"
+        )
+        return AuthResponse(access_token=access_token, user=hardcoded_user)
 
-        if "openid" not in wx_data:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"微信登录失败: {wx_data.get('errmsg', 'unknown')}"
-            )
+    # 正式微信登录流程
+    async with httpx.AsyncClient(timeout=10.0) as client:
+        wx_url = f"https://api.weixin.qq.com/sns/jscode2session?appid={settings.WX_APPID}&secret={settings.WX_SECRET}&js_code={wx_request.code}&grant_type=authorization_code"
+        response = await client.get(wx_url)
+        wx_data = response.json()
 
-        openid = wx_data["openid"]
-        unionid = wx_data.get("unionid")
+    if "openid" not in wx_data:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"微信登录失败: {wx_data.get('errmsg', 'unknown')}"
+        )
 
-        # 查询或创建用户
-        result = await db.execute(select(User).where(User.wx_openid == openid))
-        user = result.scalar_one_or_none()
+    openid = wx_data["openid"]
+    unionid = wx_data.get("unionid")
 
-        if user is None:
-            # 新用户
-            user = User(identifier=openid, wx_openid=openid, wx_unionid=unionid)
-            db.add(user)
-            await db.commit()
-            await db.refresh(user)
+    # 查询或创建用户
+    result = await db.execute(select(User).where(User.wx_openid == openid))
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        # 新用户
+        user = User(identifier=openid, wx_openid=openid, wx_unionid=unionid)
+        db.add(user)
+        await db.commit()
+        await db.refresh(user)
 
     # 生成 JWT
     access_token = create_access_token(data={"sub": str(user.id)})
