@@ -17,13 +17,16 @@ limiter = Limiter(key_func=get_remote_address)
 
 def note_to_dict(note: Note) -> dict:
     """Convert SQLAlchemy Note model to dict for Pydantic v1"""
+    # Convert PostgreSQL ARRAY to list and JSONB to dict
+    tags = list(note.tags) if note.tags else []
+    ai_metadata = dict(note.ai_metadata) if note.ai_metadata else None
     return {
         "id": note.id,
         "user_id": note.user_id,
         "content": note.content,
         "status": note.status,
-        "tags": note.tags,
-        "ai_metadata": note.ai_metadata,
+        "tags": tags,
+        "ai_metadata": ai_metadata,
         "created_at": note.created_at,
         "updated_at": note.updated_at,
     }
