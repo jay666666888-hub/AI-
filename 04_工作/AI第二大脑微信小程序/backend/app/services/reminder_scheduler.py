@@ -1,16 +1,25 @@
 """
 提醒调度器 - 检查并发送到期提醒
+Python 3.6.8 compatible version
 """
 import asyncio
 from datetime import datetime
 from sqlalchemy import select, and_
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
 from app.config import settings
 from app.models.models import Reminder, User, Task
 from app.services.wx_notifier import send_reminder_notification
 
 engine = create_async_engine(settings.DATABASE_URL)
-async_session_local = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+# Use sessionmaker with AsyncSession as replacement for async_sessionmaker
+async_session_local = sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+    autocommit=False,
+    autoflush=False
+)
 
 async def check_and_send_reminders():
     """检查并发送到期提醒"""
