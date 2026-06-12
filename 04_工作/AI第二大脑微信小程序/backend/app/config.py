@@ -1,9 +1,8 @@
 try:
-    from pydantic_settings import BaseSettings
+    from pydantic_settings.base import BaseSettingsModel as BaseSettings
 except ImportError:
     from pydantic import BaseSettings
 from functools import lru_cache
-import secrets
 
 class Settings(BaseSettings):
     APP_NAME: str = "AI第二大脑"
@@ -32,7 +31,6 @@ class Settings(BaseSettings):
         "http://127.0.0.1",
         "http://198.18.0.1",
         "http://123.56.13.231",
-        # 添加更多信任的域名...
     ]
 
     # Environment
