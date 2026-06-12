@@ -23,23 +23,32 @@ App({
     }
 
     this.loginPromise = new Promise((resolve, reject) => {
+      const doLogin = (code) => {
+        this._rawRequest('/auth/wx-login', {
+          method: 'POST',
+          body: { code: code }
+        }).then((response) => {
+          this.globalData.token = response.access_token
+          this.globalData.userInfo = response.user
+          wx.setStorageSync('token', response.access_token)
+          this.loginPromise = null  // 登录完成后清除
+          resolve(response)
+        }).catch((e) => {
+          this.loginPromise = null
+          reject(e)
+        })
+      }
+
+      if (API_CONFIG.testMode) {
+        // 测试模式：使用特殊码让后端返回真实JWT
+        doLogin('TEST_DEV_MODE')
+        return
+      }
+
       wx.login({
-        success: async (res) => {
+        success: (res) => {
           if (res.code) {
-            try {
-              const response = await this._rawRequest('/auth/wx-login', {
-                method: 'POST',
-                body: { code: res.code }
-              })
-              this.globalData.token = response.access_token
-              this.globalData.userInfo = response.user
-              wx.setStorageSync('token', response.access_token)
-              this.loginPromise = null  // 登录完成后清除
-              resolve(response)
-            } catch (e) {
-              this.loginPromise = null
-              reject(e)
-            }
+            doLogin(res.code)
           } else {
             this.loginPromise = null
             reject(new Error('微信登录失败'))

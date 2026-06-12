@@ -38,6 +38,21 @@ async def startup_event():
     """启动时运行调度器"""
     logger.info("Application starting...")
     print("[Startup] Starting reminder scheduler...")
+
+@app.get("/test-simple")
+async def test_simple():
+    """Simple test endpoint without dependencies"""
+    return {"status": "ok", "message": "simple endpoint works"}
+
+@app.get("/debug-settings")
+async def debug_settings():
+    """Debug endpoint to check settings"""
+    from app.config import settings
+    return {
+        "WX_APPID": settings.WX_APPID,
+        "WX_SECRET": "***" if settings.WX_SECRET else "EMPTY",
+        "DATABASE_URL": settings.DATABASE_URL[:30] + "..." if settings.DATABASE_URL else "EMPTY"
+    }
     from app.services.reminder_scheduler import start_scheduler
     start_scheduler()
     print("[Startup] Reminder scheduler started")

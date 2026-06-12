@@ -3,6 +3,7 @@
 """
 import logging
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -28,8 +29,11 @@ class JSONFormatter(logging.Formatter):
             log_obj["entity_id"] = str(record.entity_id) if record.entity_id else None
         return json.dumps(log_obj, ensure_ascii=False)
 
-def setup_logging(log_file: str = "/var/log/ai-brain.log"):
+def setup_logging(log_file: str = None):
     """配置日志"""
+    # 默认日志文件在项目目录
+    if log_file is None:
+        log_file = os.path.join(os.path.dirname(__file__), "..", "..", "logs", "ai-brain.log")
     # 确保日志目录存在
     log_path = Path(log_file)
     log_path.parent.mkdir(parents=True, exist_ok=True)
